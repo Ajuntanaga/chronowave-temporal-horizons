@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temporal horizons — Module XI | Chronowave Dynamics</title>
+<meta name="description" content="Module XI of the Chronowave Dynamics Temporal Engine: Where the cubic exponent meets its evidence.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070B14'/%3E%3Ctext x='32' y='44' font-family='serif' font-style='italic' font-size='34' fill='%23F5A83C' text-anchor='middle'%3Et%C2%B3%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<style>
+/* ============================================================
+   CHRONOWAVE DYNAMICS · TEMPORAL ENGINE
+   phosphor cyan → thermal amber duotone over a deep time-field
+   ============================================================ */
+:root{
+  --field:      #070B14;
+  --field-2:    #0B1120;
+  --field-3:    #101830;
+  --ivory:      #EDE8DC;
+  --ivory-dim:  rgba(237,232,220,.62);
+  --ivory-faint:rgba(237,232,220,.38);
+  --cyan:       #59D6C9;
+  --cyan-dim:   rgba(89,214,201,.35);
+  --amber:      #F5A83C;
+  --amber-dim:  rgba(245,168,60,.35);
+  --hairline:   rgba(237,232,220,.12);
+  --serif: "STIX Two Text", "Times New Roman", serif;
+  --grot:  "Space Grotesk", system-ui, sans-serif;
+  --mono:  "IBM Plex Mono", ui-monospace, monospace;
+  --max: 1140px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+body{
+  background:var(--field); color:var(--ivory);
+  font-family:var(--serif); font-size:17px; line-height:1.72;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+::selection{background:var(--amber);color:var(--field)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(18px,4.5vw,56px)}
+.eyebrow{
+  font-family:var(--grot);font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--cyan);font-weight:500;display:flex;align-items:center;gap:14px;
+}
+.eyebrow::after{content:"";height:1px;flex:0 0 56px;background:linear-gradient(90deg,var(--cyan),transparent)}
+.eyebrow .rn{color:var(--amber);letter-spacing:.14em}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(29px,4vw,44px);line-height:1.16;letter-spacing:-.01em;margin:18px 0 8px}
+h2 em{font-style:italic;color:var(--amber)}
+h3{font-family:var(--serif);font-weight:600;font-size:20px;margin:0 0 6px}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--ivory-dim);max-width:64ch}
+p{color:var(--ivory-dim);max-width:66ch;margin-bottom:1.1em}
+p strong{color:var(--ivory);font-weight:600}
+section{padding:clamp(68px,9vh,120px) 0;position:relative}
+section + section{border-top:1px solid var(--hairline)}
+
+/* equation panels */
+.eq-panel{background:linear-gradient(180deg,var(--field-2),rgba(13,21,36,.6));border:1px solid var(--hairline);border-left:none;border-radius:10px;padding:26px 26px 22px;margin:26px 0;overflow:visible;position:relative;counter-increment:eqn}
+.eq-panel::after{content:"eq " counter(eqn,decimal-leading-zero);position:absolute;right:14px;bottom:8px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:rgba(237,232,220,.28)}
+.eq-panel{box-shadow:inset 3px 0 0 0 var(--cyan)}
+.eq-panel[data-tag*="ASSUMED" i]{box-shadow:inset 3px 0 0 0 rgba(232,110,204,.85)}
+.eq-panel[data-tag*="ASSUMED" i]::before{color:rgba(232,110,204,.9)}
+.eq-panel[data-tag*="MEASURED" i],.eq-panel[data-tag*="FITTED" i]{box-shadow:inset 3px 0 0 0 var(--amber)}
+.eq-panel[data-tag*="MEASURED" i]::before,.eq-panel[data-tag*="FITTED" i]::before{color:var(--amber)}
+.eq-panel::before{content:attr(data-tag);position:absolute;top:-9px;left:20px;font-family:var(--grot);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--cyan);background:var(--field);padding:0 10px;max-width:86%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eq{color:var(--ivory);font-size:18px;text-align:center}
+.eq .katex{font-size:1.08em}
+.eq .katex-display{margin:.35em 0}
+.eq-scroll{overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:rgba(89,214,201,.35) transparent}
+.eq-scroll::-webkit-scrollbar{height:5px}
+.eq-scroll::-webkit-scrollbar-thumb{background:rgba(89,214,201,.28);border-radius:3px}
+.eq-scroll::-webkit-scrollbar-track{background:transparent}
+.katex-fallback{font-family:var(--mono);font-size:13px;color:var(--cyan);white-space:pre-wrap}
+body{counter-reset:eqn}
+
+/* instrument chrome */
+.readout{font-family:var(--mono);font-size:12.5px;color:var(--cyan);letter-spacing:.03em}
+.readout b{color:var(--amber);font-weight:500}
+.panel{background:var(--field-2);border:1px solid var(--hairline);border-radius:12px;overflow:hidden}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid var(--hairline);font-family:var(--grot);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ivory-faint);flex-wrap:wrap}
+canvas.viz{display:block;width:100%;height:auto;background:radial-gradient(120% 100% at 50% 0%, rgba(89,214,201,.05), transparent 60%), var(--field-2)}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:20px 30px;padding:18px 20px;border-top:1px solid var(--hairline)}
+/* The basis carries the 170px, not min-width: `.controls .ctrl{min-width:0}` further down (the phone
+   fix) cancels the minimum at every width, and with flex:1's zero basis a slider then never forces a
+   wrap. It shrank to 11px beside its neighbours instead (the Lorenz rho, sigma and beta sliders). */
+.ctrl{min-width:170px;flex:1 1 170px}
+.ctrl.narrow{min-width:130px;flex:0 1 180px}
+.ctrl label{display:flex;justify-content:space-between;gap:8px;font-family:var(--grot);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ivory-faint);margin-bottom:8px}
+.ctrl label output{font-family:var(--mono);color:var(--amber);letter-spacing:0;text-transform:none;white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--amber));outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:15px;height:15px;border-radius:50%;background:var(--ivory);border:2px solid var(--field);box-shadow:0 0 0 1.5px var(--cyan),0 0 12px rgba(89,214,201,.5)}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--ivory);border:2px solid var(--field);box-shadow:0 0 0 1.5px var(--cyan)}
+input[type=range]:focus-visible{outline:2px solid var(--amber);outline-offset:6px}
+.btn{font-family:var(--grot);font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--field);background:var(--cyan);border:none;border-radius:100px;padding:11px 22px;cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s}
+.btn:hover{background:var(--amber);box-shadow:0 0 24px rgba(245,168,60,.35)}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible{outline:2px solid var(--ivory);outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--cyan);border:1px solid var(--cyan-dim)}
+.btn.ghost:hover{color:var(--amber);border-color:var(--amber);box-shadow:none}
+.btn.live{background:var(--amber)}
+.btn.mini{padding:7px 14px;font-size:10.5px}
+.seg{display:inline-flex;border:1px solid var(--hairline);border-radius:100px;overflow:hidden;flex-wrap:wrap}
+.seg button{font-family:var(--grot);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--ivory-faint);border:none;padding:9px 17px;cursor:pointer;transition:color .2s,background .2s}
+.seg button+button{border-left:1px solid var(--hairline)}
+.seg button[aria-pressed="true"]{background:var(--field-3);color:var(--amber)}
+.seg button:focus-visible{outline:2px solid var(--cyan);outline-offset:-3px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ivory-dim);background:transparent;border:1px solid var(--hairline);border-radius:100px;padding:6px 13px;cursor:pointer;transition:all .18s}
+.chip:hover{border-color:var(--cyan);color:var(--cyan)}
+.chip[aria-pressed="true"]{border-color:var(--amber);color:var(--amber);background:rgba(245,168,60,.08)}
+.chip:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* stat tiles */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--hairline);border-top:1px solid var(--hairline)}
+.stat{background:var(--field-2);padding:14px 18px}
+.stat .k{font-family:var(--grot);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory-faint)}
+.stat .v{font-family:var(--mono);font-size:14.5px;color:var(--cyan);margin-top:4px;word-break:break-all}
+.stat .v.warm{color:var(--amber)}
+
+/* nav */
+nav#tf-nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(7,11,20,.75);border-bottom:1px solid var(--hairline)}
+nav#tf-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:20px}
+.brand{font-family:var(--grot);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ivory);text-decoration:none;font-weight:600;white-space:nowrap}
+.brand span{color:var(--amber)}
+.navlinks{display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{font-family:var(--grot);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ivory-faint);text-decoration:none;transition:color .2s;white-space:nowrap}
+.navlinks a:hover{color:var(--cyan)}
+.navlinks a .rn{color:var(--amber);margin-right:5px}
+@media(max-width:640px){.navlinks{display:none}}
+
+/* hero */
+header#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:120px 0 80px}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#hero .wrap{position:relative;z-index:2}
+#hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(7,11,20,.25) 0%,rgba(7,11,20,0) 40%,rgba(7,11,20,.85) 92%)}
+.hero-kicker{font-family:var(--grot);font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--cyan);margin-bottom:26px}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(42px,8vw,104px);line-height:.98;letter-spacing:-.02em}
+h1 .t-sup{display:inline-block;color:var(--amber);font-style:italic}
+.hero-sub{margin-top:30px;font-size:clamp(17px,1.9vw,21px);color:var(--ivory-dim);max-width:58ch}
+.hero-sub i{color:var(--ivory)}
+.hero-meta{margin-top:40px;display:flex;gap:32px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--ivory-faint);letter-spacing:.05em}
+.hero-meta div b{display:block;color:var(--cyan);font-weight:400;margin-bottom:3px}
+.hero-cta{margin-top:42px;display:flex;gap:14px;flex-wrap:wrap}
+.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;font-family:var(--grot);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ivory-faint);animation:hint 2.6s ease-in-out infinite}
+@keyframes hint{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+@media(prefers-reduced-motion:reduce){.scroll-hint{animation:none}}
+
+/* dimensional ladder */
+.ladder-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:start;margin-top:32px}
+@media(max-width:900px){.ladder-grid{grid-template-columns:1fr}}
+.dim-list{display:flex;flex-direction:column;gap:2px}
+#frameBar{position:relative;margin-top:-58px;display:flex;align-items:center;justify-content:center;gap:18px;padding:10px 14px;background:linear-gradient(rgba(7,11,20,0),rgba(7,11,20,.88) 40%)}
+#frameBar .chips{margin:0;justify-content:center}
+.readout{font-variant-numeric:tabular-nums}
+#hlStepVals{display:inline-block;min-width:30ch;white-space:nowrap}
+#hlRung{display:inline-block;min-width:38ch;white-space:nowrap;text-align:right}
+.stepGrp{display:inline-flex;align-items:center;gap:5px;padding:3px 10px 3px 12px;border:1px solid var(--hairline);border-radius:999px;background:rgba(13,21,36,.8)}
+.stepGrp .readout{min-width:auto}
+#hlFineBand{display:none}
+#hlFineBand.on{display:flex;flex-wrap:wrap;align-items:flex-end}
+.hl-fine label{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.hl-fine output{min-width:82px;text-align:right;font-variant-numeric:tabular-nums}
+.hl-fine input[type=range]{width:100%}
+#ladderCanvas,#hlCanvas,#meshCanvas,#lorenzCanvas,#tvCanvas,#tfeCanvas{touch-action:none}
+@media (pointer:coarse){
+  .btn.mini{min-height:34px;min-width:34px;padding:6px 12px}
+  .stepGrp{padding:5px 12px}
+  input[type=number]{font-size:16px !important}
+  input[type=range]{min-height:30px}
+  select{min-height:32px;font-size:13px !important}
+}
+@media (max-width:720px){
+  .wrap{padding-left:14px;padding-right:14px}
+  .controls{gap:10px}
+  .ctrl.narrow{flex:1 1 100%}
+  #hlStepRow{gap:8px}
+  .readout{font-size:11px}
+  #meshAlg label{flex:1 1 100%}
+}
+
+/* ============ NARROW-VIEWPORT CONTAINMENT ============
+   Measured, not guessed: Chromium at 320 and 360 px reported
+   document.scrollWidth = 383, i.e. the whole page scrolled sideways, and the
+   deepest causes were a table row with min-content 369 px and a canvas with
+   min-content 367 px — both already sitting inside overflow-x:auto parents.
+   The reason the parents were not containing them is the default every grid
+   and flex item carries: min-width:auto, which resolves to MIN-CONTENT and
+   quietly overrides the scroll container. overflow-x:auto cannot shrink a box
+   whose minimum size is its content. So the fix is min-width:0 in the places
+   that scroll or are scrolled, and it belongs at every width, not behind a
+   media query — which is why this block sits outside one.
+   The canvas case is worse than a layout quirk: animate() writes
+   cv.width = cv.clientWidth every frame, so once the element has been wide,
+   its intrinsic width pins the minimum and it can never shrink back. That is a
+   one-way ratchet; max-width:100% breaks it. */
+.table-scroll, .eq-scroll{min-width:0}
+/* Any control row of buttons must be able to wrap. A non-wrapping flex row is
+   the general form of the fault measured in the lattice at 320 px, where three
+   buttons summed to 306 px in a 292 px box and pushed the whole document. */
+.controls .ctrl{min-width:0}
+.controls .ctrl > .seg, .controls .ctrl[style*="display:flex"]{flex-wrap:wrap}
+.seg{flex-wrap:wrap}
+canvas.viz{min-width:0;max-width:100%}
+.panel{min-width:0}
+.ref-grid > *, .split > *, .lattice-grid > *, .ladder-grid > *{min-width:0}
+.papers{grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))}
+/* long mono readouts must be allowed to break rather than push the page */
+.readout, .tier-note code{overflow-wrap:anywhere}
+
+@media (max-width:520px){
+  /* the canon and open-ruling card grids: a 252px track in a 292px content box
+     fits, but below that the track keeps its minimum and overflows. min() lets
+     the single column collapse to the container instead. */
+  #compendium [style*="minmax(252px"]{grid-template-columns:1fr !important}
+  .papers{grid-template-columns:1fr}
+  .paper{padding:18px 16px 16px}
+  .paper .glyph{font-size:30px;right:10px;top:6px}
+  .paper h3{font-size:16px;padding-right:32px}
+  .eq-panel{padding:22px 14px 18px}
+  .eq-panel::before{max-width:calc(100% - 28px)}
+  .eq{font-size:15px}
+  table.data th, table.data td{padding-right:10px}
+  .panel-head{padding:12px 14px;gap:10px}
+  .wrap{padding-left:12px;padding-right:12px}
+  /* Inline flex:0 0 auto on a control row beats the .ctrl.narrow rule above and
+     sizes the row to max-content — which is how three buttons summed to 306 px
+     inside a 292 px box. Below 520 px a control row takes the full width and
+     wraps inside itself instead. */
+  .controls .ctrl[style*="flex:0 0 auto"]{flex:1 1 100% !important}
+  .btn.mini{font-size:10px;padding:5px 9px}
+  /* the nav keeps only the brand at this width, so it must not reserve a row
+     for links that are display:none */
+  #tf-nav .wrap{gap:8px;flex-wrap:nowrap}
+  #tf-nav #palBtn{font-size:9px;padding:3px 6px;letter-spacing:0}
+  #tf-nav .brand{font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* Measured at 320-414 px: the canon cards' category labels render at 9.5 px
+     in uppercase with .16em tracking, which is past legible on a phone, and the
+     "→ XIII" module links are 38x12 px tap targets. Both are compendium-wide
+     patterns, so they are fixed by shape rather than one at a time. */
+  #compendium div[style*="font-size:9.5px"]{font-size:10.5px !important;letter-spacing:.12em !important}
+  #compendium a[href^="#"]{display:inline-block;padding:7px 8px;margin:-7px -2px;min-height:30px;line-height:16px}
+}
+/* Tap targets for the in-card module links at every width: an inline anchor of
+   38x12 px is a miss on any touch screen, not only a narrow one. */
+@media (pointer:coarse){
+  #compendium a[href^="#"], .tier-note a[href^="#"]{display:inline-block;padding:6px 8px;margin:-6px -2px;min-height:30px}
+}
+body.frame-tau .rn{color:var(--amber)}
+body.frame-beat .rn{color:#E7C46B}
+.chip.fr-tau[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
+.chip.fr-beat[aria-pressed="true"]{border-color:#E7C46B;color:#E7C46B}
+.dim-item{text-align:left;background:transparent;border:none;border-left:2px solid var(--hairline);padding:17px 20px;cursor:pointer;transition:border-color .25s,background .25s}
+.dim-item .dt{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--ivory-dim);transition:color .25s}
+.dim-item .dn{font-family:var(--grot);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ivory-faint);margin-top:2px}
+.dim-item .dd{font-family:var(--serif);font-size:14.5px;color:var(--ivory-faint);margin-top:8px;line-height:1.55;max-width:40ch}
+.dim-item[aria-pressed="true"]{border-left-color:var(--amber);background:linear-gradient(90deg,rgba(245,168,60,.07),transparent)}
+.dim-item[aria-pressed="true"] .dt{color:var(--amber)}
+.dim-item[aria-pressed="true"] .dn{color:var(--cyan)}
+.dim-item:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
+
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+.split.top{align-items:start}
+
+/* tables */
+table.data{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+table.data caption{caption-side:top;text-align:left;font-family:var(--grot);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ivory-faint);padding-bottom:12px}
+table.data th{font-weight:400;text-align:left;color:var(--cyan);letter-spacing:.05em;border-bottom:1px solid var(--hairline);padding:8px 12px 10px 0;white-space:nowrap}
+table.data td{color:var(--ivory-dim);padding:10px 12px 10px 0;border-bottom:1px solid rgba(237,232,220,.06);white-space:nowrap}
+table.data td.err{color:var(--amber)}
+table.data tr.final td{color:var(--ivory)}
+table.data tr.final td.err{color:var(--cyan);text-shadow:0 0 14px rgba(89,214,201,.5)}
+.table-scroll{overflow-x:auto}
+.ref-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:start;margin-top:28px}
+@media(max-width:960px){.ref-grid{grid-template-columns:1fr}}
+
+/* master eq */
+.tier-note{font-family:var(--grot);font-size:11.5px;letter-spacing:.08em;color:var(--ivory-faint);margin-top:10px;line-height:1.6}
+/* .ctrl label and .panel-head are upper-cased, which also turns gamma into Gamma, omega into Omega
+   and "t" into "T". Symbols and live readouts keep their case. */
+.sym, .panel-head .readout{text-transform:none}
+.cpl{white-space:nowrap;margin-right:14px}
+.cpl input{width:5.2em;background:#0d1524;color:var(--amber);border:1px solid var(--hairline);border-radius:6px;padding:3px 6px;font-family:var(--mono);font-size:12px}
+.cpl input:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+.tier-note a{color:var(--cyan);text-underline-offset:2px}
+.tier-note a:hover{color:var(--amber)}
+/* Modules V, VI, VIII-XII, XIV, XVI: prose runs the full column instead of a 64-74ch strip on the
+   left, matching the standalone module extracts. Drop a section from this list to restore the strip. */
+:is(#scramble,#gnss,#hydrogen,#cosmos,#master,#horizons,#attractor,#volume,#observatory) :is(p,.lede,.gr-list){max-width:none}
+:is(#scramble,#gnss,#hydrogen,#cosmos,#master,#horizons,#attractor,#volume,#observatory) .panel + .tier-note{margin-top:18px}
+.gr-list{list-style:none;margin:22px 0 0;display:grid;gap:12px;max-width:64ch}
+.gr-list li{padding-left:26px;position:relative;color:var(--ivory-dim);font-size:16px}
+.gr-list li::before{content:"";position:absolute;left:0;top:.62em;width:12px;height:1.5px;background:linear-gradient(90deg,var(--cyan),var(--amber))}
+
+/* lattice */
+.lattice-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:40px;align-items:start;margin-top:28px}
+@media(max-width:940px){.lattice-grid{grid-template-columns:1fr}}
+.scale-row{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 6px}
+.scale-cell{font-family:var(--mono);font-size:13px;color:var(--ivory-dim);border:1px solid var(--hairline);border-radius:8px;padding:9px 0;cursor:pointer;transition:all .18s;background:transparent;flex:1;min-width:44px;text-align:center}
+.scale-cell small{display:block;font-size:9px;color:var(--ivory-faint);letter-spacing:.08em;margin-top:2px}
+.scale-cell:hover{border-color:var(--cyan);color:var(--cyan)}
+.scale-cell.on{border-color:var(--amber);color:var(--amber);background:rgba(245,168,60,.09);box-shadow:0 0 18px rgba(245,168,60,.18)}
+.scale-cell:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* papers / compendium */
+.papers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:34px}
+.paper{border:1px solid var(--hairline);border-radius:12px;padding:22px 22px 20px;background:linear-gradient(160deg,var(--field-2),transparent 70%);transition:border-color .25s,transform .25s;position:relative;overflow:hidden}
+.paper:hover{border-color:var(--cyan-dim);transform:translateY(-3px)}
+.paper .pn{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.08em;margin-bottom:11px}
+.paper h3{font-size:17.5px;line-height:1.35;font-weight:600}
+.paper p{font-size:13.5px;line-height:1.6;color:var(--ivory-faint);margin:9px 0 0;max-width:none}
+.paper .glyph{position:absolute;right:14px;top:8px;font-family:var(--serif);font-style:italic;font-size:42px;color:rgba(89,214,201,.14)}
+
+.origin{border:1px solid var(--hairline);border-left:2px solid var(--amber);border-radius:0 12px 12px 0;padding:26px 30px;background:linear-gradient(90deg,rgba(245,168,60,.05),transparent 55%);margin-top:28px}
+.origin p{max-width:72ch}
+.origin .tagline{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.06em;margin-bottom:13px}
+
+footer{border-top:1px solid var(--hairline);padding:54px 0 70px;font-family:var(--grot);font-size:12px;letter-spacing:.14em;color:var(--ivory-faint)}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline}
+footer .disc{font-family:var(--serif);font-size:13.5px;letter-spacing:0;max-width:52ch;line-height:1.6}
+
+/* scroll progress: time elapsed through the document */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,var(--cyan),var(--amber));box-shadow:0 0 10px rgba(245,168,60,.5);pointer-events:none}
+.navlinks a.active{color:var(--amber)}
+/* section reveal (only when JS is live) */
+body.js section > .wrap{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+body.js section > .wrap.vis{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){body.js section > .wrap{opacity:1;transform:none;transition:none}}
+
+/* command console */
+#palette{position:fixed;inset:0;z-index:80;display:none;background:rgba(4,6,12,.66);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#palette.open{display:flex;align-items:flex-start;justify-content:center;padding:12vh 18px 0}
+.pal-box{width:min(560px,100%);background:var(--field-2);border:1px solid var(--cyan-dim);border-radius:14px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 40px rgba(89,214,201,.12)}
+.pal-box input{width:100%;background:transparent;border:none;outline:none;color:var(--ivory);font-family:var(--mono);font-size:15px;padding:16px 18px;border-bottom:1px solid var(--hairline)}
+.pal-box input::placeholder{color:var(--ivory-faint)}
+.pal-list{max-height:46vh;overflow-y:auto}
+.pal-item{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:11px 18px;cursor:pointer;font-family:var(--grot);font-size:13px;letter-spacing:.06em;color:var(--ivory-dim)}
+.pal-item .cat{font-family:var(--mono);font-size:10px;color:var(--ivory-faint);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.pal-item.sel{background:var(--field-3);color:var(--amber)}
+.pal-item.sel .cat{color:var(--cyan)}
+.pal-foot{display:flex;gap:16px;padding:9px 18px;border-top:1px solid var(--hairline);font-family:var(--mono);font-size:10px;color:var(--ivory-faint)}
+kbd{font-family:var(--mono);font-size:10px;color:var(--cyan);border:1px solid var(--hairline);border-bottom-width:2px;border-radius:4px;padding:1px 6px;background:var(--field)}
+#palBtn{font-family:var(--mono);font-size:10.5px;color:var(--ivory-faint);background:transparent;border:1px solid var(--hairline);border-radius:6px;padding:4px 9px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
+#palBtn:hover{color:var(--cyan);border-color:var(--cyan-dim)}
+.key-hint{font-family:var(--mono);font-size:10.5px;color:var(--ivory-faint);letter-spacing:.04em;margin-top:10px}
+
+/* M3 source lattice */
+.m3-wrap{overflow-x:auto;padding:18px}
+.m3-grid{display:grid;grid-template-columns:repeat(13,minmax(52px,1fr));gap:0;min-width:720px;border:1px solid var(--hairline)}
+.m3-cell{
+  font-family:var(--mono);font-size:10.5px;color:var(--ivory-dim);
+  background:transparent;border:none;border-right:1px solid rgba(237,232,220,.09);border-bottom:1px solid rgba(237,232,220,.09);
+  padding:9px 3px;cursor:pointer;text-align:center;white-space:nowrap;transition:background .15s,color .15s;
+}
+.m3-cell:hover{color:var(--cyan);background:rgba(89,214,201,.06)}
+.m3-cell:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
+.m3-cell.band{background:rgba(89,214,201,.045)}
+.m3-cell.bandL{border-left:2px double rgba(89,214,201,.55)}
+.m3-cell.bandR{border-right:2px double rgba(89,214,201,.55)}
+.m3-cell.a440{box-shadow:inset 0 0 0 1px rgba(245,168,60,.7)}
+.m3-cell.zeroSph{position:relative}
+.m3-cell.zeroSph::after{content:"";position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;border:1px solid rgba(237,232,220,.55);background:transparent}
+.m3-cell:not(.zeroSph)::after{content:"";position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;border:1px solid rgba(89,214,201,.30);background:radial-gradient(circle at 35% 35%, rgba(89,214,201,.45), rgba(89,214,201,.06))}
+.m3-cell{position:relative}
+.m3-key-zero,.m3-key-work{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:baseline;margin:0 2px}
+.m3-key-zero{border:1px solid rgba(237,232,220,.55)}
+.m3-key-work{border:1px solid rgba(89,214,201,.35);background:radial-gradient(circle at 35% 35%, rgba(89,214,201,.5), rgba(89,214,201,.08))}
+.m3-cell.rule{border-right:3px double rgba(237,232,220,.35)}
+.m3-cell.tonic{color:var(--amber);font-weight:500}
+
+.m3-cell.lit{background:rgba(245,168,60,.16);color:var(--amber);box-shadow:inset 0 0 0 1px rgba(245,168,60,.4)}
+.m3-cell.sel{background:rgba(245,168,60,.3);color:var(--field);font-weight:600;text-shadow:none}
+.m3-readout{font-family:var(--mono);font-size:11.5px;color:var(--ivory-dim);padding:12px 20px;border-top:1px solid var(--hairline);display:flex;gap:18px;flex-wrap:wrap}
+.m3-readout b{color:var(--amber);font-weight:500}
+.m3-readout .q{color:var(--cyan)}
+.m3-grid.m3-num .m3-cell{font-size:9.3px;letter-spacing:0;padding:9px 2px}
+
+
+/* live equation lines — panels recalculate with the module's current parameters */
+.eq-live{border-top:1px dashed var(--hairline);margin-top:16px;padding-top:12px;color:var(--cyan);font-size:14px;overflow-x:auto}
+.eq-live .katex{font-size:.98em}
+.eq-live::before{content:"live";font-family:var(--grot);font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:7px}
+.txt-in{font-family:var(--mono);font-size:12.5px;color:var(--ivory);background:var(--field-3);border:1px solid var(--hairline);border-radius:8px;padding:8px 12px;width:100%;outline:none}
+.txt-in:focus{border-color:var(--cyan)}
+#helpBox{position:fixed;inset:0;z-index:80;display:none;background:rgba(4,6,12,.66);backdrop-filter:blur(6px)}
+#helpBox.open{display:flex;align-items:center;justify-content:center;padding:20px}
+.help-card{width:min(460px,100%);background:var(--field-2);border:1px solid var(--cyan-dim);border-radius:14px;padding:26px 30px}
+.help-card h3{font-family:var(--grot);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.help-card .row{display:flex;justify-content:space-between;gap:16px;font-family:var(--grot);font-size:13px;color:var(--ivory-dim);padding:7px 0;border-bottom:1px solid rgba(237,232,220,.06)}
+.icv-out{font-family:var(--mono);font-size:11.5px;color:var(--cyan);margin-top:10px;letter-spacing:.04em}
+.icv-out b{color:var(--amber);font-weight:500}
+@keyframes gradientBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hl-panel{position:relative}
+.hl-panel::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;z-index:2;
+  background:linear-gradient(-65deg,var(--cyan),#c850c8,var(--amber),var(--cyan));
+  background-size:400% 400%;animation:gradientBG 45s ease infinite}
+@media(prefers-reduced-motion:reduce){.hl-panel::before{animation:none}}
+.qreg{display:flex;flex-wrap:wrap;gap:6px;padding:12px 20px;border-top:1px solid var(--hairline)}
+.qreg .qk{font-family:var(--mono);font-size:10.5px;color:var(--ivory-dim);border:1px solid var(--hairline);border-radius:6px;padding:5px 9px;cursor:pointer;background:transparent;transition:all .15s}
+.qreg .qk small{color:var(--ivory-faint);margin-right:5px}
+.qreg .qk:hover{border-color:var(--cyan);color:var(--cyan)}
+.qreg .qk.hit{border-color:var(--amber);color:var(--amber);background:rgba(245,168,60,.12);box-shadow:0 0 14px rgba(245,168,60,.25)}
+.qreg .qk.zero{border-style:dashed;color:var(--ivory-faint)}
+.qreg .qk.zero.hit{border-color:var(--ivory);color:var(--ivory);background:rgba(237,232,220,.08)}
+</style>
+</head>
+<body>
+<div class="wrap" style="padding-top:28px">
+  <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ivory-faint)">Chronowave Dynamics &middot; Temporal Engine &middot; standalone module extract</div>
+</div>
+<section id="horizons">
+  <div class="wrap">
+    <div class="eyebrow"><span class="rn">XI</span> Temporal horizons</div>
+    <h2>Where the cubic exponent <em>meets its evidence</em></h2>
+    <p class="lede"><strong>This is the module that decides the framework's central kinetic claim, and it is the
+      reason to read it first rather than last.</strong> The law is
+      d&tau;/dt = (1&minus;&beta;&sup2;)<sup>k</sup> with k on trial &mdash; GR's &frac12; against the cubic
+      claim's &#8531;. Module VI runs that trial at &beta;&sup2; &asymp; 1.7&times;10<sup>&minus;10</sup>, where the two
+      predictions differ by 3&times;10<sup>&minus;11</sup> and it takes a 145-satellite array and a careful
+      regression to tell them apart. The <em>gravitational</em> form of the same law,
+      d&tau;/dt = (1&minus;r<sub>s</sub>/r)<sup>k</sup>, carries the identical 33&#37; relative split &mdash; but
+      onto a quantity physics has been measuring since 1959. In the weak field it gives
+      z = 2k|&Phi;|/c&sup2;, so <em>every gravitational-redshift measurement ever made is a measurement of k</em>,
+      and k = &#8531; predicts every one of them coming in a third small. Four anchors below, combined:
+      <strong>k&#770; = 0.50000 &plusmn; 0.00004</strong> &mdash; GR at 0.0&sigma;, the cubic exponent at
+      <strong>4762&sigma;</strong>, with Gravity Probe A managing it single-handed in 1976. There is exactly one
+      way out and the framework has never said whether it takes it; the panel states it, and cannot choose it for
+      you. The same dressing (1&minus;R/2GM)<sup>&minus;1</sup> is the horizon term of the field equation in
+      Module X, and scale symmetry s<sub>t</sub>&middot;s<sub>&tau;</sub> = s never breaks: what coordinate time
+      stretches, proper time repays.</p>
+    <div class="eq-panel" data-tag="Schwarzschild dilation &middot; GR case k = &frac12;">
+      <div class="eq eq-scroll" data-tex="r_s = \frac{2GM}{c^2}, \qquad \frac{d\tau}{dt} = \sqrt{1 - \frac{r_s}{r}}, \qquad z = \Big(1-\frac{r_s}{r}\Big)^{-1/2} - 1"></div>
+    </div>
+    <div class="eq-panel" data-tag="The 2&pi; shell &middot; where the hole's gearing equals the framework's own">
+      <div class="eq eq-scroll" data-tex="\Big(1-\frac{r_s}{r}\Big)^{-k} = 2\pi \quad\Longrightarrow\quad \frac{r_{2\pi}}{r_s} = \frac{1}{1-(2\pi)^{-1/k}} \;=\; \begin{cases} 1.02599 & k=\tfrac12 \\[2pt] 1.00405 & k=\tfrac13 \end{cases}"></div>
+    </div>
+    <div class="eq-panel" data-tag="The exponent, generalized &middot; weak field z &rarr; k&middot;r_s/r">
+      <div class="eq eq-scroll" data-tex="\frac{d\tau}{dt} = \Big(1 - \frac{r_s}{r}\Big)^{k}, \qquad k = \tfrac{1}{2}\ \text{(GR)} \quad\text{vs}\quad k = \tfrac{1}{3}\ \text{(cubic)}, \qquad \frac{z_{1/2}}{z_{1/3}} \to \frac{3}{2}"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <span>Horizon well &middot; orbiting clocks tick at d&tau;/dt</span>
+        <span style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <span class="seg" role="group" aria-label="Observer frame">
+            <button id="bhFrA" aria-pressed="true" title="Observer for the next release: the faller's own proper time, which completes">Ride along &middot; &tau;</button>
+            <button id="bhFrB" aria-pressed="false" title="Observer for the next release: the far clock, for which the approach freezes and never arrives">Watch from afar &middot; t</button>
+          </span>
+          <span class="seg" role="group" aria-label="Dilation exponent"><button id="bhKA" aria-pressed="true" title="GR: dtau/dt = (1 - rs/r)^(1/2)">k = &frac12;</button><button id="bhKB" aria-pressed="false" title="Cubic claim: dtau/dt = (1 - rs/r)^(1/3)">k = &#8531;</button></span>
+          <button class="btn mini" id="bhFall" aria-pressed="false">Release &middot; fall in</button>
+          <span class="readout">d&tau;/dt = <b id="bhRate">0.913</b> &middot; z = <b id="bhZ">0.095</b></span>
+        </span>
+      </div>
+      <canvas class="viz" id="bhCanvas" height="440" aria-label="Black hole horizon with orbiting clocks slowing and reddening with depth"></canvas>
+      <div class="stats">
+        <div class="stat"><div class="k">mass</div><div class="v warm" id="bhM">10 M&#9737;</div></div>
+        <div class="stat"><div class="k">r_s</div><div class="v" id="bhRs">29.5 km</div></div>
+        <div class="stat"><div class="k">your radius</div><div class="v" id="bhR">6.00 r_s</div></div>
+        <div class="stat"><div class="k">1 hr here =</div><div class="v warm" id="bhHr">1.095 hr far away</div></div>
+        <div class="stat"><div class="k">free-fall to r = 0 &middot; GR</div><div class="v" id="bhFallT">2.27 ms proper</div></div>
+      </div>
+      <div class="controls">
+        <div class="ctrl" style="flex:2 1 300px">
+          <label for="bhRad">Radius r/r<sub>s</sub> <output id="bhRadOut">6.00</output></label>
+          <input type="range" id="bhRad" min="1.001" max="20" step="0.001" value="6">
+        </div>
+      </div>
+      <div class="controls" style="padding-top:0">
+        <div class="chips" role="group" aria-label="Black hole presets">
+          <button class="chip" data-bhm="10" aria-pressed="true">Stellar &middot; 10 M&#9737;</button>
+          <button class="chip" data-bhm="4150000">Sgr A* &middot; 4.15e6 M&#9737;</button>
+          <button class="chip" data-bhm="6500000000">M87* &middot; 6.5e9 M&#9737;</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:26px">
+      <div class="panel-head">
+        <span>The exponent on trial &middot; strong field &middot; real measurements</span>
+        <span class="readout">split at your radius <b id="bhSplit">&mdash;</b> &middot; <b id="bhVerd">&mdash;</b></span>
+      </div>
+      <canvas class="viz" id="bhKCanvas" height="188" aria-label="Proper-time rate against radius for both dilation exponents, with the current radius marked"></canvas>
+      <div id="bhAnchors" style="padding:12px 16px 8px;font-family:var(--mono);font-size:11px;line-height:1.9;overflow-x:auto"></div>
+      <div id="bhLadder" style="padding:0 16px 14px;font-family:var(--mono);font-size:11px;line-height:1.9;overflow-x:auto"></div>
+      <div class="controls" style="padding-top:0">
+        <div class="ctrl narrow" style="flex:0 0 auto;display:flex;align-items:flex-end;gap:8px">
+          <button class="btn mini ghost" id="bhToX" title="Send this radius to the field equation's horizon-dressing term (Module X)">r<sub>s</sub>/r &rarr; X's R</button>
+        </div>
+        <div class="ctrl" style="flex:2 1 320px"><div class="readout" id="bhXNote" style="line-height:1.7">the same dressing (1&minus;R/2GM)<sup>&minus;1</sup> appears on the field equation's source side</div></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:26px">
+      <div class="panel-head">
+        <span>The escape hatch, closed &middot; k<sub>kin</sub> against k<sub>grav</sub></span>
+        <span style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <span class="seg" role="group" aria-label="Clock pair">
+            <button id="epP0" aria-pressed="true" title="Boulder (40.0&deg;N) to Braunschweig (52.3&deg;N) &mdash; NIST and PTB, routinely compared">NIST &harr; PTB</button>
+            <button id="epP1" title="Tsukuba (36.1&deg;N) to Braunschweig (52.3&deg;N) &mdash; the widest routine intercontinental baseline">NMIJ &harr; PTB</button>
+            <button id="epP2" title="The idealised maximum: a clock at the pole against one at the equator">pole &harr; equator</button>
+          </span>
+          <span class="readout">residual <b id="epRes">&mdash;</b></span>
+        </span>
+      </div>
+      <canvas class="viz" id="epCanvas" height="360" aria-label="The k-kinematic against k-gravitational plane, with the equivalence-principle diagonal and three experimental constraints"></canvas>
+      <div class="controls">
+        <div class="ctrl">
+          <label for="epKG">k<sub>grav</sub> <output id="epKGOut">0.500</output></label>
+          <input type="range" id="epKG" min="0.15" max="0.75" step="0.001" value="0.5">
+        </div>
+        <div class="ctrl">
+          <label for="epKK">k<sub>kin</sub> <output id="epKKOut">0.500</output></label>
+          <input type="range" id="epKK" min="0.15" max="0.75" step="0.001" value="0.5">
+        </div>
+        <div class="ctrl narrow" style="flex:0 0 auto;display:flex;align-items:flex-end;gap:8px">
+          <button class="btn mini ghost" id="epGR" title="Both exponents at GR's one half">GR &frac12;,&frac12;</button>
+          <button class="btn mini ghost" id="epCU" title="Both exponents at the cubic claim">cubic &#8531;,&#8531;</button>
+          <button class="btn mini ghost" id="epRT" title="The retreat: cubic kinematically, GR gravitationally">retreat &#8531;,&frac12;</button>
+        </div>
+        <div class="ctrl narrow">
+          <label for="epSig">comparison precision &sigma; = 10<sup>&minus;n</sup> <output id="epSigOut">16</output></label>
+          <input type="range" id="epSig" min="14" max="19" step="1" value="16">
+        </div>
+        <div class="ctrl" style="flex:1 1 100%"><div class="readout" id="epOut" style="line-height:1.75">&mdash;</div></div>
+      </div>
+    </div>
+
+    <p class="tier-note">Four independent anchors spanning ten decades of field strength each publish a
+      ratio of measured shift to the GR prediction, and that ratio over two is k&#770; directly: nothing fitted,
+      nothing circular. The one retreat left, a cubic exponent kinematically with GR's square root
+      gravitationally, is closed by the geoid. Every clock on it ticks alike only if
+      k<sub>kin</sub> = k<sub>grav</sub>, and the residual between two geoid clocks is
+      (k<sub>grav</sub> &minus; k<sub>kin</sub>)&middot;&Delta;(v&sup2;)/c&sup2;. Boulder to Braunschweig would
+      show 8.5&times;10<sup>&minus;14</sup>, which is 854&times; outside what caesium fountains allow and
+      85,000&times; outside optical clocks. The framework's own 2&pi; shell sits at 1.02599&thinsp;r<sub>s</sub>
+      under GR and 1.00405 under the cubic claim, 6.4&times; further from the horizon, and on Earth an
+      optical-lattice clock separates the two exponents on a 2.7 cm shelf.
+      <span style="color:rgb(232,110,204)">[OPEN]</span> The ruling this asks for is whether the cubic
+      exponent is a claim about clocks at all, or a bookkeeping convention inside the temporal relabelling; the
+      engine cannot hold the first as written. <a href="Module_XI_Manual.md">Full notes in the Manual &rarr;</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div style="color:var(--ivory);letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px">Chronowave <span style="color:var(--amber)">Dynamics</span></div>
+      <div>Framework &amp; papers &middot; Anthony M. Vargas &amp; Aethus Iqbal-Samir &middot; 2024&ndash;2026</div>
+    </div>
+    <div class="disc">Module XI &middot; Temporal horizons, extracted standalone from the full Temporal Engine compendium on 2026-11-14. A speculative theoretical framework, presented as proposed in the source papers and prototypes.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const CYAN = "#59D6C9", AMBER = "#F5A83C", IVORY = "#EDE8DC";
+function renderTex(el, tex, display){
+  if (window.katex){
+    try { katex.render(tex, el, {displayMode: display !== false, throwOnError: false}); return; }
+    catch(e){}
+  }
+  el.innerHTML = '<span class="katex-fallback"></span>';
+  el.firstChild.textContent = tex;
+}
+document.querySelectorAll(".eq[data-tex]").forEach(el => renderTex(el, el.dataset.tex));
+function fitCanvas(cv){
+  /* THE WHITEOUT BUG LIVED HERE: this used to read h from the height
+     attribute and then write cv.height = h*dpr \u2014 which IS that attribute.
+     On DPR-2 devices every call doubled the canvas (300\u2192600\u2192...) until it
+     passed the browser's max canvas area and rendering silently stopped:
+     the hyper-expansion and the blankouts were one bug. The design height
+     is now cached once and the resize is idempotent. */
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  if (!cv.dataset.designH) cv.dataset.designH = cv.getAttribute("height") || cv.clientHeight || 300;
+  const w = cv.clientWidth, h = +cv.dataset.designH;
+  const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+  if (cv.width !== bw) cv.width = bw;
+  if (cv.height !== bh) cv.height = bh;
+  cv.style.height = h + "px";
+  const ctx = cv.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return {ctx, w, h};
+}
+const animators = [];
+function animate(cv, draw){
+  /* Resilient loop: an exception in one frame must never kill the rAF chain
+     (the old behavior \u2014 one NaN-radius throw blanked the module until
+     reload: the reported whiteouts). Errors are caught, context state is
+     restored so dirt can't leak into later frames, the first few are logged
+     (+ collected on window.__frameErrs for the harness). Zero-size boxes are
+     skipped rather than fitted; height changes now also trigger refit. */
+  let st = null, visible = true, t0 = performance.now(), errN = 0;
+  const io = new IntersectionObserver(en => { visible = en[0].isIntersecting; }, {rootMargin:"140px"});
+  io.observe(cv);
+  function frame(now){
+    if (visible && cv.clientWidth > 0){
+      /* designH is also watched: a view that asks for a new height from inside
+         its draw (VIII's legacy "Two clocks · Z" asks for 472/664) used to be
+         clipped at the old height, because clientHeight still matched st.h */
+      if (!st || st.w !== cv.clientWidth || st.h !== cv.clientHeight ||
+          (cv.dataset.designH && st.h !== +cv.dataset.designH)) st = fitCanvas(cv);
+      try{
+        st.ctx.save();
+        draw(st.ctx, st.w, st.h, reduced ? 0 : (now - t0) / 1000);
+        st.ctx.restore();
+      }catch(e2){
+        try{ st.ctx.restore(); }catch(e3){}
+        errN++;
+        (window.__frameErrs = window.__frameErrs || []).push(cv.id + ": " + e2.message);
+        if (errN <= 3) console.warn("frame error on #" + cv.id, e2);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  animators.push(() => { st = null; });
+}
+window.addEventListener("resize", () => animators.forEach(f => f()));
+function duo(mix, a){ /* cyan->amber */
+  return `rgba(${89+(245-89)*mix|0},${214+(168-214)*mix|0},${201+(60-201)*mix|0},${a})`;
+}
+const C_LIGHT = 299792458;
+const G_N = 6.674e-11, MSUN = 1.989e30;
+const bh = {
+  Msun: 10,
+  el: {
+    r: document.getElementById("bhRad"), rOut: document.getElementById("bhRadOut"),
+    rate: document.getElementById("bhRate"), z: document.getElementById("bhZ"),
+    M: document.getElementById("bhM"), rs: document.getElementById("bhRs"),
+    R: document.getElementById("bhR"), hr: document.getElementById("bhHr")
+  },
+  rs(){ return 2*G_N*this.Msun*MSUN/(299792458**2); },
+  x(){ return +this.el.r.value; },
+  /* THE law for this module \u2014 three consumers read it (the horizon canvas's
+     orbiting clocks, the stat tiles, the patch-bay port), and before this they
+     all ran GR while the header claimed k = 1/3. The free-fall time below stays
+     the GR geodesic and is labelled as such; a modified dilation law does not
+     hand you a geodesic for free. */
+  rate(){
+    /* DOMAIN GUARD. x = r/r_s, and the slider floors at 1.001, but the value is
+       read through the DOM and nothing stopped an out-of-range read: at x = 0
+       this computed pow(1 - 1/0, 1/2) = pow(-Infinity, 1/2) = Infinity, which
+       the telemetry board then sampled. At or inside the horizon there is no
+       static observer, so dtau/dt is not a real number there \u2014 the honest
+       return is NaN, and every consumer already has to handle one. */
+    const x = this.x();
+    if (!(x > 1)) return NaN;
+    return Math.pow(1 - 1/x, this.k === undefined ? 0.5 : this.k);
+  },
+  upd(){
+    const x = this.x(), rate = this.rate();
+    this.el.rOut.value = x.toFixed(2);
+    const rOK = Number.isFinite(rate);
+    this.el.rate.textContent = rOK
+      ? rate.toFixed(3) + (this.k === 0.5 ? "" : " (k=\u2153)")
+      : "\u2014 at/inside the horizon";
+    this.el.z.textContent = rOK ? (1/rate - 1).toFixed(3) : "\u221E";
+    if (this.renderTrial) this.renderTrial();
+    this.el.M.innerHTML = this.Msun >= 1e6 ? this.Msun.toExponential(2) + " M\u2609" : this.Msun + " M\u2609";
+    const rs = this.rs();
+    this.el.rs.textContent = rs < 1e6 ? (rs/1000).toFixed(1) + " km" : (rs/1000).toExponential(2) + " km";
+    this.el.R.textContent = x.toFixed(3) + " r_s";
+    this.el.hr.textContent = Number.isFinite(rate) ? (1/rate).toFixed(3) + " hr far away" : "unbounded";
+    const tf = (Math.PI/2)*(rs/C_LIGHT)*Math.pow(x, 1.5);   /* proper time from rest at r to r = 0 (GR geodesic; the k toggle does not enter) */
+    document.getElementById("bhFallT").textContent =
+      tf < 1 ? (tf*1000).toFixed(2) + " ms proper"
+      : tf < 120 ? tf.toFixed(1) + " s proper"
+      : tf < 7200 ? (tf/60).toFixed(1) + " min proper"
+      : tf < 172800 ? (tf/3600).toFixed(1) + " h proper"
+      : (tf/86400).toFixed(1) + " d proper";
+  }
+};
+bh.k = 0.5;
+bh.ANCH = [
+  ["Pound\u2013Rebka\u2013Snider", 0.9990, 0.0076, "22.6 m tower, Harvard 1965 \u00B7 \u0394\u03A6 from surveyed height"],
+  ["Gravity Probe A", 1.0000, 0.00007, "H-maser to 10 000 km, 1976 \u00B7 \u0394\u03A6 from tracked trajectory"],
+  ["Sirius B (HST/STIS)", 1.0029, 0.0096, "white dwarf \u00B7 \u0394\u03A6 from dynamical mass and radius \u00B7 Joyce et al. 2018 (80.65 \u00B1 0.77 km/s; Barstow 2005 reached 6%)"],
+  ["S2 at pericentre", 1.04, 0.05, "GRAVITY 2019 update (the 2018 paper gave 0.90) \u00B7 Sgr A*, \u0394\u03A6 from the fitted orbit"]
+];
+bh.trial = function(){
+  return this.ANCH.map(([nm, ratio, sig, note]) => {
+    const kHat = ratio/2, kErr = sig/2;
+    const nGR = Math.abs(kHat - 0.5)/Math.max(1e-30, kErr);
+    const nCU = Math.abs(kHat - 1/3)/Math.max(1e-30, kErr);
+    return { nm, note, ratio, sig, kHat, kErr, nGR, nCU };
+  });
+};
+bh.shell2pi = (k) => 1/(1 - Math.pow(2*Math.PI, -1/k));
+bh.ladder = function(){
+  const c2 = 299792458*299792458, g = 9.80665;
+  return [
+    ["Cs fountain", 1e-16], ["optical lattice", 1e-18], ["best in-sample (2022)", 1e-20]
+  ].map(([nm, sig]) => ({ nm, sig, h: 3*c2*sig/g }));
+};
+bh.EP = {
+  kg: 0.5, kk: 0.5, sig: 16, pair: 0,
+  OM: 7.292115e-5, REQ: 6378137,
+  PAIRS: [
+    ["NIST Boulder \u2194 PTB Braunschweig", 40.0, 52.3],
+    ["NMIJ Tsukuba \u2194 PTB Braunschweig", 36.1, 52.3],
+    ["pole \u2194 equator (idealised maximum)", 90.0, 0.0]
+  ],
+  /* the constraints this engine has already produced, in this plane */
+  CON: {
+    get grav(){ const C = bh.combined(); return [C.kHat, C.kErr]; },   /* Module XI's four anchors, combined: derived, no longer a copy */
+    kin:  [0.5, 0.004]          /* Module VI's bi-linear fit at sigma = 2 ps, rounded up from the 0.0025-0.0033 it measures */
+  },
+  v(lat){ return this.OM*this.REQ*Math.cos(lat*Math.PI/180); },
+  dv2(){ const p = this.PAIRS[this.pair]; const a = this.v(p[1]), b = this.v(p[2]); return a*a - b*b; },
+  lever(){ return Math.abs(this.dv2())/(299792458*299792458); },
+  resid(){ return (this.kg - this.kk)*this.dv2()/(299792458*299792458); },
+  bound(){ return Math.pow(10, -this.sig)/Math.max(1e-30, this.lever()); }
+};
+bh.renderLadder = function(){
+  const box = document.getElementById("bhLadder");
+  if (!box) return;
+  const c2 = 299792458*299792458, g = 9.80665;
+  const split = (hh) => g*hh/(3*c2);
+  let html = "<div style='color:var(--ivory-faint);font-family:var(--grot);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;margin:6px 0 4px'>How close must you look &middot; weak-field ladder</div>" +
+    "<table style='border-collapse:collapse;white-space:nowrap'><tr style='opacity:.55'>" +
+    "<td style='padding-right:16px'>clock stability</td><td style='padding-right:16px'>shelf height that separates \u00BD from \u2153</td><td>split at 1 m</td></tr>";
+  this.ladder().forEach(r => {
+    html += "<tr><td style='padding-right:16px;opacity:.85'>\u03C3 = " + r.sig.toExponential(0) + " \u00B7 " + r.nm + "</td>" +
+      "<td style='padding-right:16px;color:var(--cyan)'>" +
+      (r.h >= 1 ? r.h.toFixed(2) + " m" : r.h >= 0.01 ? (r.h*100).toFixed(1) + " cm" : (r.h*1000).toFixed(2) + " mm") + "</td>" +
+      "<td style='opacity:.7'>" + (() => { const q = split(1)/r.sig;
+        return (q < 1 ? q.toFixed(2) : q < 100 ? q.toFixed(1) : q.toFixed(0)) + "\u00D7 \u03C3" +
+               (q < 1 ? " <span style='color:var(--amber)'>(below detection at 1 m)</span>" : ""); })() + "</td></tr>";
+  });
+  html += "</table><div style='opacity:.6;margin-top:4px'>split = g&#8201;h/3c\u00B2 \u00B7 at 1 m it is " + split(1).toExponential(2) +
+    " \u2014 an optical-lattice clock decides the exponent on a <b style='color:var(--amber)'>" +
+    (3*c2*1e-18/g*100).toFixed(1) + " cm</b> shelf</div>";
+  box.innerHTML = html;
+};
+bh.combined = function(){
+  const T = this.trial();
+  const comb = (set) => {
+    let num = 0, den = 0;
+    set.forEach(t => { const wi = 1/(t.kErr*t.kErr); num += wi*t.kHat; den += wi; });
+    const kHat = num/den, kErr = Math.sqrt(1/den);
+    return { kHat, kErr, nGR: Math.abs(kHat - 0.5)/kErr, nCU: Math.abs(kHat - 1/3)/kErr };
+  };
+  const all = comb(T);
+  /* Leave-one-out. A 4762-sigma exclusion resting on a single 1976 experiment
+     would be one systematic away from nothing, so drop each anchor in turn and
+     report the WEAKEST surviving exclusion. That number, not the headline, is
+     what the conclusion actually rests on. */
+  const loo = T.map((t, i) => ({ dropped: t.nm, r: comb(T.filter((_, j) => j !== i)) }));
+  const worst = loo.slice().sort((a, b) => a.r.nCU - b.r.nCU)[0];
+  return Object.assign(all, { n: T.length, loo, worst,
+           best: T.slice().sort((a,b) => a.kErr - b.kErr)[0] });
+};
+bh.pm = function(v, e){ const dp = Math.max(0, 1 - Math.floor(Math.log10(e))); return v.toFixed(dp) + " \u00B1 " + e.toFixed(dp); };
+bh.renderTrial = function(){
+  const box = document.getElementById("bhAnchors");
+  if (!box) return;
+  let html = "<table style='border-collapse:collapse;white-space:nowrap'><tr style='opacity:.55'>" +
+    "<td style='padding-right:14px'>anchor</td><td style='padding-right:14px'>measured / GR</td>" +
+    "<td style='padding-right:14px'>k&#770; \u00B1 &sigma;</td><td style='padding-right:14px'>vs \u00BD</td>" +
+    "<td style='padding-right:14px'>vs \u2153</td><td>verdict</td></tr>";
+  this.trial().forEach(r => {
+    const say = r.nCU > 3 && r.nGR < 3 ? "<span style='color:var(--cyan)'>\u2153 excluded</span>"
+              : r.nGR > 3 && r.nCU < 3 ? "<span style='color:var(--amber)'>\u00BD excluded</span>"
+              : "<span style='opacity:.6'>indecisive</span>";
+    html += "<tr><td style='padding-right:14px;opacity:.85'>" + r.nm + "</td>" +
+      "<td style='padding-right:14px;color:var(--cyan)'>" + bh.pm(r.ratio, r.sig) + "</td>" +
+      "<td style='padding-right:14px'>" + bh.pm(r.kHat, r.kErr) + "</td>" +
+      "<td style='padding-right:14px;opacity:.75'>" + r.nGR.toFixed(1) + "\u03C3</td>" +
+      "<td style='padding-right:14px;opacity:.75'>" + r.nCU.toFixed(1) + "\u03C3</td>" +
+      "<td>" + say + "</td></tr>" +
+      "<tr style='opacity:.45'><td colspan='6' style='padding:0 0 4px 14px'>" + r.note + "</td></tr>";
+  });
+  const C = this.combined();
+  html += "<tr style='border-top:1px solid var(--hairline)'>" +
+    "<td style='padding:6px 14px 0 0'><b>combined (" + C.n + ", inverse variance)</b></td>" +
+    "<td style='padding:6px 14px 0 0;color:var(--cyan)'>&mdash;</td>" +
+    "<td style='padding:6px 14px 0 0'><b>" + C.kHat.toFixed(6) + " \u00B1 " + C.kErr.toFixed(6) + "</b></td>" +
+    "<td style='padding:6px 14px 0 0'>" + C.nGR.toFixed(2) + "\u03C3</td>" +
+    "<td style='padding:6px 14px 0 0;color:var(--amber)'><b>" + C.nCU.toFixed(0) + "\u03C3</b></td>" +
+    "<td style='padding:6px 0 0 0'>" + (C.nCU > 5 && C.nGR < 3
+      ? "<span style='color:var(--amber)'><b>\u2153 excluded outright</b></span>"
+      : "<span style='opacity:.6'>indecisive</span>") + "</td></tr>";
+  box.innerHTML = html + "</table>" +
+    "<div style='margin-top:10px;padding:10px 12px;border:1px solid rgba(245,168,60,.35);border-radius:6px;background:rgba(245,168,60,.06);line-height:1.8'>" +
+    "<b style='color:var(--amber)'>What this module is for, stated plainly.</b> Module VI runs the k trial at " +
+    "\u03B2\u00B2 \u2248 1.7\u00D710\u207B\u00B9\u2070, where the two exponents differ by \u03B2\u00B2/6 \u2248 3\u00D710\u207B\u00B9\u00B9 in absolute terms. " +
+    "This module runs the <i>same k</i> in the gravitational channel, where the same 33\u0025 relative split lands " +
+    "on a quantity that has been measured since 1959. In the weak field d\u03C4/dt = (1\u2212r<sub>s</sub>/r)<sup>k</sup> " +
+    "gives z = 2k|\u03A6|/c\u00B2, so every gravitational-redshift measurement <i>is</i> a measurement of k, and " +
+    "k = \u2153 predicts redshifts <b>one third smaller</b> than GR \u2014 a ratio of 0.667 where Pound\u2013Rebka " +
+    "measured " + this.ANCH[0][1].toFixed(4) + " \u00B1 " + this.ANCH[0][2].toFixed(4) + "." +
+    "<br>Combined over " + C.n + " anchors: <b>k\u0302 = " + C.kHat.toFixed(6) + " \u00B1 " + C.kErr.toFixed(6) +
+    "</b> \u2014 GR at " + C.nGR.toFixed(2) + "\u03C3, the cubic claim at <b>" + C.nCU.toFixed(0) + "\u03C3</b>. " +
+    C.best.nm + " alone does it \u2014 and that is the obvious objection, so it is tested: dropping the strongest " +
+    "anchor entirely and combining only the other three still gives <b>" + C.worst.r.nCU.toFixed(0) +
+    "\u03C3</b> (weakest leave-one-out, without " + C.worst.dropped + "). The conclusion does not rest on one " +
+    "experiment. <b>As the framework writes the law, with k universal, the cubic exponent is not marginal " +
+    "here \u2014 it is dead.</b>" +
+    "<br><span style='color:rgb(232,110,204)'>[OPEN \u2014 needs a ruling] There is exactly one way out, and the " +
+    "framework has never said whether it takes it: restrict k to the <i>kinematic</i> factor (1\u2212\u03B2\u00B2)<sup>k</sup> " +
+    "and leave the gravitational factor at GR's \u221A. Then these anchors do not test it and Module VI's parts-per-" +
+    "trillion regime is the only place the claim lives \u2014 which also means the claim gives up any connection to " +
+    "the equivalence principle, since it would be treating velocity and potential as physically different channels. " +
+    "The panel's own header equation applies k gravitationally, so as written the answer is the one above.</span>" +
+    "</div>";
+  const x = 1/this.x();
+  const rGR = Math.pow(1 - x, 0.5), rCU = Math.pow(1 - x, 1/3);
+  const sp = document.getElementById("bhSplit");
+  if (sp) sp.textContent = (rCU/rGR).toFixed(3) + "\u00D7 at " + this.x().toFixed(3) + " r_s";
+  const vd = document.getElementById("bhVerd");
+  if (vd) vd.innerHTML = "d\u03C4/dt \u00BD: " + rGR.toFixed(4) + " \u00B7 \u2153: " + rCU.toFixed(4);
+  if (this.renderLadder) this.renderLadder();
+};
+document.getElementById("bhKA").addEventListener("click", function(){
+  bh.k = 0.5; this.setAttribute("aria-pressed","true");
+  document.getElementById("bhKB").setAttribute("aria-pressed","false"); bh.upd();
+});
+document.getElementById("bhKB").addEventListener("click", function(){
+  bh.k = 1/3; this.setAttribute("aria-pressed","true");
+  document.getElementById("bhKA").setAttribute("aria-pressed","false"); bh.upd();
+});
+animate(document.getElementById("bhKCanvas"), (ctx, w, h) => {
+  ctx.clearRect(0, 0, w, h);
+  /* axis is HEIGHT ABOVE THE HORIZON, x = r/r_s - 1, on a log scale. The old
+     axis ran r/r_s from 1 to 20 linearly in log r, which crammed everything
+     that matters \u2014 including both 2pi shells \u2014 into the leftmost 1% of the
+     box. On this axis the shells sit a third of the way in, and apart. */
+  const px = 52, py = 24;
+  const L0 = Math.log10(1e-3), L1 = Math.log10(19);
+  const gx = v => px + (Math.log10(Math.max(1e-9, v)) - L0)/(L1 - L0)*(w - px - 16);
+  const gy = v => h - py - v*(h - py - 18);
+  ctx.strokeStyle = "rgba(237,232,220,.14)"; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(px, 8); ctx.lineTo(px, h - py); ctx.lineTo(w - 12, h - py); ctx.stroke();
+  ctx.font = "8.5px 'IBM Plex Mono', monospace"; ctx.fillStyle = "rgba(237,232,220,.35)";
+  [[1e-3,"0.001"],[1e-2,"0.01"],[1e-1,"0.1"],[1,"1"],[10,"10"]].forEach(([v, lab]) => {
+    ctx.strokeStyle = "rgba(237,232,220,.06)";
+    ctx.beginPath(); ctx.moveTo(gx(v), 8); ctx.lineTo(gx(v), h - py); ctx.stroke();
+    ctx.fillText(lab, gx(v) - 6, h - py + 12);
+  });
+  [[0.5,"\u00BD"],[1,"1"]].forEach(([v, lab]) => {
+    ctx.fillStyle = "rgba(237,232,220,.3)"; ctx.fillText(lab, px - 14, gy(v) + 3);
+  });
+  [[0.5, "rgba(89,214,201,.85)"], [1/3, "rgba(245,168,60,.85)"]].forEach(([k, col]) => {
+    ctx.strokeStyle = col; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (let i = 0; i <= 160; i++){
+      const hh = Math.pow(10, L0 + (L1 - L0)*i/160);
+      const rr = 1 + hh;
+      const X = gx(hh), Y = gy(Math.pow(1 - 1/rr, k));
+      i === 0 ? ctx.moveTo(X, Y) : ctx.lineTo(X, Y);
+    }
+    ctx.stroke();
+  });
+  /* the 2pi shells */
+  [[0.5, "rgba(89,214,201,", "\u00BD"], [1/3, "rgba(245,168,60,", "\u2153"]].forEach(([k, col, lab]) => {
+    const hs = bh.shell2pi(k) - 1;
+    const X = gx(hs);
+    ctx.strokeStyle = col + ".55)"; ctx.setLineDash([2,3]); ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(X, 20); ctx.lineTo(X, h - py); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = col + ".9)"; ctx.font = "8.5px 'IBM Plex Mono', monospace";
+    ctx.fillText("2\u03C0 " + lab, X - 10, 31);   /* below the 520 px title, which the labels used to overprint at y = 17 */
+    ctx.beginPath(); ctx.arc(X, gy(1/(2*Math.PI)), 3, 0, 7); ctx.fill();
+  });
+  const xr = bh.x(), hr = xr - 1;
+  ctx.strokeStyle = "rgba(237,232,220,.55)"; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(gx(hr), 8); ctx.lineTo(gx(hr), h - py); ctx.stroke(); ctx.setLineDash([]);
+  [[0.5, "rgba(89,214,201,1)"], [1/3, "rgba(245,168,60,1)"]].forEach(([k, col]) => {
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(gx(hr), gy(Math.pow(1 - 1/xr, k)), 3.4, 0, 7); ctx.fill();
+  });
+  ctx.fillStyle = "rgba(237,232,220,.5)"; ctx.font = "10px 'IBM Plex Mono', monospace";
+  ctx.fillText("d\u03C4/dt vs height above the horizon r/r_s \u2212 1 (log) \u00B7 teal k=\u00BD \u00B7 amber k=\u2153 \u00B7 dashed = you", px + 8, 16);
+  ctx.fillStyle = "rgba(237,232,220,.4)"; ctx.font = "8.5px 'IBM Plex Mono', monospace";
+  ctx.fillText("r/r_s \u2212 1", w - 60, h - 6);
+});
+bh.renderTrial();
+{
+  const E = bh.EP;
+  const kgEl = document.getElementById("epKG"), kkEl = document.getElementById("epKK"), sgEl = document.getElementById("epSig");
+  /* A 0.001 slider step cannot land on 1/3, so routing the presets through the
+     inputs turned an exact |\u0394k| = 1/6 into 0.1670 and the exclusion factor
+     from 854 into 855.6. The presets now carry their exact values and the
+     sliders only display them; touching a slider clears the exact pair. */
+  const sync = () => {
+    if (E.exact){ E.kg = E.exact[0]; E.kk = E.exact[1]; }
+    else { E.kg = +kgEl.value; E.kk = +kkEl.value; }
+    E.sig = +sgEl.value;
+    document.getElementById("epKGOut").value = E.kg.toFixed(3);
+    document.getElementById("epKKOut").value = E.kk.toFixed(3);
+    document.getElementById("epSigOut").value = String(E.sig);
+    const r = E.resid(), b = E.bound(), p = E.PAIRS[E.pair];
+    const need = Math.abs(E.kg - E.kk);
+    const sigN = Math.pow(10, -E.sig);
+    const nsig = Math.abs(r)/sigN;
+    const rEl = document.getElementById("epRes");
+    if (rEl) rEl.innerHTML = Math.abs(r) < 1e-30
+      ? "<span style='color:var(--cyan)'>0 exactly</span>"
+      : "<span style='color:var(--amber)'>" + r.toExponential(3) + "</span>";
+    const o = document.getElementById("epOut");
+    if (o) o.innerHTML =
+      /* signed throughout: the pole-equator pair has v(a) < v(b), and printing |lever| beside a signed
+         residual read as "(0.1667)*2.41e-12 = -4.011e-13" */
+      "<b>" + p[0] + "</b> \u00B7 \u0394(v\u00B2) = " + E.dv2().toPrecision(4) +
+      " m\u00B2/s\u00B2 \u00B7 lever \u0394(v\u00B2)/c\u00B2 = " + (E.dv2()/(299792458*299792458)).toExponential(3) +
+      "<br>geoid residual = (k<sub>grav</sub> \u2212 k<sub>kin</sub>)\u00B7\u0394(v\u00B2)/c\u00B2 = " +
+      "(" + (E.kg - E.kk).toPrecision(4) + ")\u00B7(" + (E.dv2()/(299792458*299792458)).toExponential(2) + ") = <b>" +
+      (Math.abs(r) < 1e-30 ? "0 exactly" : r.toExponential(3)) + "</b>" +
+      " \u2014 against \u03C3 = 10<sup>\u2212" + E.sig + "</sup> that is <b>" +
+      (nsig === 0 ? "0" : nsig < 0.01 ? nsig.toExponential(2) : nsig < 1e4 ? nsig.toPrecision(4) : nsig.toExponential(3)) + "\u03C3</b>" +
+      "<br>so clocks agreeing at \u03C3 = 10<sup>\u2212" + E.sig + "</sup> bound <b>|k<sub>grav</sub> \u2212 k<sub>kin</sub>| &lt; " +
+      b.toExponential(3) + "</b>" +
+      (need > b
+        ? " \u00B7 <span style='color:var(--amber)'>this setting needs " + need.toPrecision(4) +
+          ", which is " + (need/b).toPrecision(4) + "\u00D7 the bound \u2014 excluded by the geoid</span>"
+        : " \u00B7 <span style='color:var(--cyan)'>inside the bound \u2014 the geoid does not exclude this</span>") +
+      /* A point ON the diagonal has zero residual by construction, so the geoid
+         is silent about it. Reporting only "inside the bound" would read as a
+         pass for the cubic claim itself, which the geoid never tested. The
+         other two constraints do, and the panel has them. */
+      (() => {
+        const g = bh.EP.CON.grav, kn = bh.EP.CON.kin;
+        const inXI = Math.abs(E.kg - g[0]) <= 3*g[1];
+        const inVI = Math.abs(E.kk - kn[0]) <= 3*kn[1];
+        if (need <= b && (!inXI || !inVI))
+          return "<br><span style='color:var(--amber)'>But this point sits ON the diagonal, so the geoid is " +
+            "<i>silent</i> about it by construction \u2014 that is not a pass. It is excluded by " +
+            [!inXI ? "XI's anchors on k<sub>grav</sub> (" + (Math.abs(E.kg - g[0])/g[1]).toPrecision(4) + "\u03C3)" : null,
+             !inVI ? "VI's regression on k<sub>kin</sub> (" + (Math.abs(E.kk - kn[0])/kn[1]).toPrecision(3) + "\u03C3)" : null]
+              .filter(Boolean).join(" and ") + ". The three constraints fail in different directions, which is why " +
+            "all three are drawn.</span>";
+        if (need <= b && inXI && inVI)
+          return "<br><span style='color:var(--cyan)'>Inside all three constraints \u2014 the only region that is, " +
+            "and GR sits in it.</span>";
+        return "";
+      })() +
+      "<br><span style='opacity:.75'>The retreat (\u2153, \u00BD) needs |\u0394k| = 1/6 = 0.1667. It is not a free move: " +
+      "it is the one position in this plane that the geoid forbids hardest, and the test has been running " +
+      "continuously since TAI was defined on the geoid in 1972.</span>";
+  };
+  [kgEl, kkEl].forEach(el => el.addEventListener("input", () => { E.exact = null; sync(); }));
+  sgEl.addEventListener("input", sync);
+  [0,1,2].forEach(k => document.getElementById("epP" + k).addEventListener("click", () => {
+    E.pair = k;
+    [0,1,2].forEach(j => document.getElementById("epP" + j).setAttribute("aria-pressed", String(j === k)));
+    sync();
+  }));
+  const preset = (kg, kk) => {
+    E.exact = [kg, kk];
+    kgEl.value = kg.toFixed(3); kkEl.value = kk.toFixed(3);
+    sync();
+  };
+  document.getElementById("epGR").addEventListener("click", () => preset(0.5, 0.5));
+  document.getElementById("epCU").addEventListener("click", () => preset(1/3, 1/3));
+  document.getElementById("epRT").addEventListener("click", () => preset(0.5, 1/3));
+  sync();
+
+  animate(document.getElementById("epCanvas"), (ctx, w, h) => {
+    ctx.clearRect(0, 0, w, h);
+    const padL = 54, padR = 18, padT = 18, padB = 40;
+    const iw = w - padL - padR, ih = h - padT - padB;
+    const LO = 0.15, HI = 0.75;
+    const X = k => padL + (k - LO)/(HI - LO)*iw;
+    const Y = k => padT + ih - (k - LO)/(HI - LO)*ih;
+    /* the EP-allowed band: |k_g - k_k| < bound. At any realistic bound this is
+       far thinner than a pixel, so it is drawn at a stated minimum width and
+       labelled as widened, rather than drawn invisibly and called a band. */
+    const b = E.bound();
+    const bandPx = Math.max(2.5, (b/(HI - LO))*iw);
+    ctx.save();
+    ctx.beginPath(); ctx.rect(padL, padT, iw, ih); ctx.clip();
+    ctx.strokeStyle = "rgba(89,214,201,.22)"; ctx.lineWidth = bandPx;
+    ctx.beginPath(); ctx.moveTo(X(LO), Y(LO)); ctx.lineTo(X(HI), Y(HI)); ctx.stroke();
+    ctx.strokeStyle = "rgba(89,214,201,.75)"; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(X(LO), Y(LO)); ctx.lineTo(X(HI), Y(HI)); ctx.stroke();
+    /* Module XI's horizontal constraint on k_grav */
+    const g = E.CON.grav, kn = E.CON.kin;
+    ctx.fillStyle = "rgba(245,168,60,.16)";
+    ctx.fillRect(padL, Y(g[0] + 3*g[1]), iw, Math.max(2.5, Math.abs(Y(g[0] - 3*g[1]) - Y(g[0] + 3*g[1]))));
+    /* Module VI's vertical constraint on k_kin */
+    ctx.fillStyle = "rgba(232,110,204,.14)";
+    ctx.fillRect(X(kn[0] - 3*kn[1]), padT, Math.max(2.5, Math.abs(X(kn[0] + 3*kn[1]) - X(kn[0] - 3*kn[1]))), ih);
+    ctx.restore();
+    ctx.strokeStyle = "rgba(237,232,220,.16)"; ctx.lineWidth = 1;
+    ctx.strokeRect(padL, padT, iw, ih);
+    /* ticks */
+    ctx.font = "9px 'IBM Plex Mono', monospace"; ctx.fillStyle = "rgba(237,232,220,.45)";
+    ctx.textAlign = "center";
+    [0.2,1/3,0.4,0.5,0.6,0.7].forEach(k => {
+      ctx.strokeStyle = "rgba(237,232,220,.06)";
+      ctx.beginPath(); ctx.moveTo(X(k), padT); ctx.lineTo(X(k), padT + ih); ctx.stroke();
+      ctx.fillText(Math.abs(k - 1/3) < 1e-9 ? "\u2153" : k.toFixed(1), X(k), padT + ih + 13);
+    });
+    ctx.textAlign = "right";
+    [0.2,1/3,0.4,0.5,0.6,0.7].forEach(k => {
+      ctx.strokeStyle = "rgba(237,232,220,.06)";
+      ctx.beginPath(); ctx.moveTo(padL, Y(k)); ctx.lineTo(padL + iw, Y(k)); ctx.stroke();
+      ctx.fillText(Math.abs(k - 1/3) < 1e-9 ? "\u2153" : k.toFixed(1), padL - 6, Y(k) + 3);
+    });
+    ctx.textAlign = "center";
+    ctx.fillStyle = "rgba(237,232,220,.6)"; ctx.font = "10.5px 'IBM Plex Mono', monospace";
+    ctx.fillText("k_kin \u2192", padL + iw/2, h - 8);
+    ctx.save(); ctx.translate(14, padT + ih/2); ctx.rotate(-Math.PI/2);
+    ctx.fillText("k_grav \u2192", 0, 0); ctx.restore();
+    /* named points */
+    const pts = [
+      [0.5, 0.5, "GR", "rgba(89,214,201,.95)"],
+      [1/3, 1/3, "cubic, as written", "rgba(245,168,60,.95)"],
+      [1/3, 0.5, "the retreat", "rgba(232,110,204,.95)"]
+    ];
+    pts.forEach(([kk, kg, nm, col]) => {
+      const x = X(kk), y = Y(kg);
+      ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, 4.2, 0, 7); ctx.fill();
+      ctx.font = "9.5px 'IBM Plex Mono', monospace"; ctx.textAlign = kk > 0.45 ? "right" : "left";
+      ctx.fillText(nm, x + (kk > 0.45 ? -8 : 8), y - 8);
+    });
+    /* the live setting */
+    const lx = X(E.kk), ly = Y(E.kg);
+    const inside = Math.abs(E.kg - E.kk) <= b;
+    ctx.strokeStyle = inside ? "rgba(89,214,201,1)" : "rgba(245,168,60,1)";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(lx, ly, 7.5, 0, 7); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(lx - 11, ly); ctx.lineTo(lx + 11, ly);
+    ctx.moveTo(lx, ly - 11); ctx.lineTo(lx, ly + 11); ctx.stroke();
+    /* legend */
+    ctx.textAlign = "left"; ctx.font = "9px 'IBM Plex Mono', monospace";
+    const L = [
+      ["rgba(89,214,201,.75)", "EP diagonal k_kin = k_grav \u00B7 geoid band \u00B1" + b.toExponential(1) + " (widened to draw)"],
+      ["rgba(245,168,60,.6)", "XI \u00B7 k_grav = " + bh.pm(E.CON.grav[0], E.CON.grav[1]) + " (3\u03C3, widened to draw)"],
+      ["rgba(232,110,204,.55)", "VI \u00B7 k_kin = 0.500 \u00B1 0.004 (3\u03C3 shown)"]
+    ];
+    L.forEach(([c, t], i) => {
+      const yy = padT + 12 + i*13;
+      ctx.fillStyle = c; ctx.fillRect(padL + 8, yy - 6, 14, 3);
+      ctx.fillStyle = "rgba(237,232,220,.6)"; ctx.fillText(t, padL + 27, yy - 2);
+    });
+  });
+}
+bh.el.r.addEventListener("input", () => bh.upd());
+document.querySelectorAll('#horizons .chip').forEach(c => c.addEventListener("click", () => {
+  document.querySelectorAll('#horizons .chip').forEach(x => x.setAttribute("aria-pressed", String(x === c)));
+  bh.Msun = +c.dataset.bhm; bh.upd();
+}));
+bh.upd();
+bh.frame = 0;
+document.getElementById("bhFrA").addEventListener("click", function(){
+  bh.frame = 0; this.setAttribute("aria-pressed","true");
+  document.getElementById("bhFrB").setAttribute("aria-pressed","false");
+});
+document.getElementById("bhFrB").addEventListener("click", function(){
+  bh.frame = 1; this.setAttribute("aria-pressed","true");
+  document.getElementById("bhFrA").setAttribute("aria-pressed","false");
+});
+bh.falling = false;
+bh.fallT = 0;
+bh.pulses = [];
+bh.fallX = null;
+const bhFallBtn = document.getElementById("bhFall");
+bh.setFallBtn = function(on){
+  bhFallBtn.textContent = on ? "\u25A0 Falling\u2026" : "Release \u00B7 fall in";
+  bhFallBtn.classList.toggle("live", on);
+  bhFallBtn.setAttribute("aria-pressed", String(on));
+};
+bh.stopFall = function(){ this.falling = false; this.setFallBtn(false); };
+bhFallBtn.addEventListener("click", () => {
+  if (bh.falling){ bh.stopFall(); return; }
+  bh.falling = true;
+  bh.fallR0 = bh.fallX = +document.getElementById("bhRad").value;
+  bh.fallT = 0; bh.pulses = []; bh._lastPulse = 0;
+  bh.setFallBtn(true);
+});
+document.getElementById("bhRad").addEventListener("input", e => { if (e.isTrusted && bh.falling) bh.fallX = +e.target.value; });
+bh.fallStep = function(dt){
+  if (!this.falling) return;
+  const el = document.getElementById("bhRad");
+  let x = this.fallX;
+  if (this.frame === 0){
+    /* ride along: a stylised proper-time infall, about 20 s from 6 r_s whatever the mass; the shape is the GR one */
+    const rate = (this.fallR0 - 1.0) / 14 * Math.max(0.15, Math.sqrt(1/Math.max(0.02, x - 1)));
+    x = Math.max(1.0005, x - rate*dt);
+  } else {
+    /* watch from afar: dr/dt ~ -(1 - rs/r)^2, so the approach freezes and the far clock keeps counting */
+    const f = Math.max(0, 1 - 1/x);
+    x = Math.max(1.0005, x - f*f*0.35*dt*(this.fallR0/6));
+  }
+  this.fallX = x;
+  el.value = x;                                   /* display only; the browser rounds it to the slider's grid */
+  this.fallT += dt;
+  /* the faller emits a pulse each proper second; each arrives dilated by 1/f */
+  const properRate = this.frame === 0 ? 1 : Math.max(0.02, 1 - 1/x);
+  if (this.fallT - this._lastPulse > 1/properRate){
+    this._lastPulse = this.fallT;
+    this.pulses.push({r: x, t: this.fallT});
+    if (this.pulses.length > 26) this.pulses.shift();
+  }
+  el.dispatchEvent(new Event("input"));
+  if (this.frame === 0 && x <= 1.005) this.stopFall();
+};
+animate(document.getElementById("bhCanvas"), (ctx, w, h, t) => {
+  if (bh._lt === undefined) bh._lt = t;
+  const dtF = Math.min(0.1, Math.max(0, t - bh._lt)); bh._lt = t;   /* animation clock: zero under reduced motion, so the scene holds still */
+  /* the fall is something the user starts, so it runs on the real clock even under reduced motion
+     (on the animation clock it flipped the button to "Falling" and then did nothing) */
+  const nowR = performance.now()/1000;
+  const dtR = Math.min(0.1, Math.max(0, nowR - (bh._lr === undefined ? nowR : bh._lr))); bh._lr = nowR;
+  bh.fallStep(dtR);
+  /* orbital phases are accumulated, not t*rate: a change of rate (the k toggle, a fall) used to move
+     every dot by t*(change), and t is the time since the page loaded */
+  bh._acc = bh._acc || {};
+  const acc = (key, rate, mult) => (bh._acc[key] = (bh._acc[key] || 0) + mult*rate*dtF);
+  bh._marks = [[1.5, "photon sphere"], [3, "ISCO"]];
+  ctx.clearRect(0, 0, w, h);
+  const cx = w/2, cy = h/2;
+  const Rout = Math.min(w, h)*0.46;             /* r = 20 rs maps here */
+  function RX(x){ return Rout * Math.sqrt((x - 1) / 19); }  /* compress depth */
+  /* horizon */
+  const rh = Math.max(10, RX(1.13));
+  const glow = ctx.createRadialGradient(cx, cy, rh*0.4, cx, cy, rh*2.4);
+  glow.addColorStop(0, "rgba(0,0,0,1)");
+  glow.addColorStop(0.42, "rgba(0,0,0,1)");
+  glow.addColorStop(0.55, "rgba(245,168,60,.5)");
+  glow.addColorStop(1, "rgba(245,168,60,0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath(); ctx.arc(cx, cy, rh*2.4, 0, 7); ctx.fill();
+  /* dilation rings */
+  ctx.font = "9.5px 'IBM Plex Mono', monospace";
+  for (const x of [1.5, 2, 3, 5, 9, 15]){
+    const r = RX(x);
+    const rate = Math.pow(1 - 1/x, bh.k);
+    ctx.strokeStyle = duo(1 - rate, .22);
+    ctx.beginPath(); ctx.ellipse(cx, cy, r, r*0.62, 0, 0, 7); ctx.stroke();
+  }
+  /* orbiting clocks: angular position advances with proper time */
+  for (const [x, n] of [[1.5, 3], [2.5, 4], [4, 5], [8, 6], [14, 7]]){
+    const r = RX(x), rate = Math.pow(1 - 1/x, bh.k), pa = acc("o" + x, rate, 0.5), pt = acc("t" + x, rate, 3);
+    for (let k = 0; k < n; k++){
+      const a = pa + k/n*6.2832 + x;
+      const px = cx + Math.cos(a)*r, py = cy + Math.sin(a)*r*0.62;
+      /* tick pulse: brightness beats every 2*pi/3 proper seconds */
+      const tick = 0.35 + 0.65*Math.max(0, Math.sin(pt + k));
+      ctx.fillStyle = duo(1 - rate, tick);
+      ctx.beginPath(); ctx.arc(px, py, 2.6 + tick*1.8, 0, 7); ctx.fill();
+    }
+  }
+  /* the observer at slider radius */
+  /* RX maps r_s to radius 0, but the black disc above is drawn at least rh wide: keep "you" outside it */
+  const xo = bh.x(), ro = Math.max(RX(xo), rh*1.15), rateO = bh.rate();
+  const ao = acc("you", rateO, 0.5);
+  const ox = cx + Math.cos(ao)*ro, oy = cy + Math.sin(ao)*ro*0.62;
+  ctx.strokeStyle = "rgba(237,232,220,.35)"; ctx.setLineDash([3,5]);
+  ctx.beginPath(); ctx.ellipse(cx, cy, ro, ro*0.62, 0, 0, 7); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = IVORY;
+  ctx.shadowColor = IVORY; ctx.shadowBlur = 14;
+  ctx.beginPath(); ctx.arc(ox, oy, 5, 0, 7); ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "rgba(237,232,220,.7)"; ctx.font = "10.5px 'IBM Plex Mono', monospace";
+  ctx.fillText("you \u00B7 d\u03C4/dt " + rateO.toFixed(3), ox + 10, oy - 8);
+  ctx.fillStyle = "rgba(237,232,220,.4)";
+  ctx.fillText("r_s", cx - 8, cy + 4);
+  /* ISCO + photon sphere ticks along the radial track */
+  { /* the radial track: ISCO and photon-sphere ticks, in slider space along the bottom */
+    const bx0 = 60, bx1 = w - 40, y0 = h - 26;
+    ctx.strokeStyle = "rgba(237,232,220,.25)";
+    ctx.beginPath(); ctx.moveTo(bx0, y0); ctx.lineTo(bx1, y0); ctx.stroke();
+    ctx.font = "9px 'IBM Plex Mono', monospace"; ctx.textAlign = "center";
+    bh._marks.forEach(([rv, lab], mi) => {
+      const x = bx0 + (bx1 - bx0)*(rv - 1.001)/(20 - 1.001);
+      ctx.strokeStyle = "rgba(245,168,60,.6)";
+      ctx.beginPath(); ctx.moveTo(x, y0 - 5); ctx.lineTo(x, y0 + 5); ctx.stroke();
+      ctx.fillStyle = "rgba(245,168,60,.7)";
+      ctx.fillText(lab + " \u00B7 " + rv + " r_s", x, mi ? y0 + 17 : y0 - 9);   /* second label below the line: the two are 73 px apart and each needs more */
+    });
+    const xc = bx0 + (bx1 - bx0)*((+document.getElementById("bhRad").value) - 1.001)/(20 - 1.001);
+    ctx.fillStyle = IVORY;
+    ctx.beginPath(); ctx.arc(xc, y0, 3.5, 0, 7); ctx.fill();
+    ctx.textAlign = "left";
+  }
+  /* the honest clocks of the fall */
+  if (bh.falling || bh.pulses.length){
+    const bx = 16, by = 18;
+    ctx.fillStyle = "rgba(7,11,20,.72)";
+    ctx.fillRect(bx - 6, by - 12, 300, 58);
+    ctx.font = "10.5px 'IBM Plex Mono', monospace";
+    const xNow = bh.fallX != null ? bh.fallX : +document.getElementById("bhRad").value;
+    const fNow = Math.max(1e-4, 1 - 1/xNow);
+    ctx.fillStyle = "rgba(89,214,201,.85)";
+    ctx.fillText((bh.frame === 0 ? "proper \u03C4 aboard: " : "far clock t: ") + bh.fallT.toFixed(1) + " s (real)", bx, by + 2);
+    ctx.fillStyle = "rgba(245,168,60,.85)";
+    ctx.fillText(bh.frame === 1
+      ? "r \u2192 r_s asymptotically \u00B7 it never arrives"
+      : "far away, this took " + (bh.fallT/Math.pow(fNow, bh.k)).toFixed(1) + (bh.falling ? " s and counting" : " s"), bx, by + 18);
+    ctx.fillStyle = "rgba(237,232,220,.6)";
+    ctx.fillText("signal pulses \u00B7 redshift 1+z = " + (1/Math.pow(fNow, bh.k)).toFixed(2), bx, by + 34);
+    /* pulse train: emitted each proper second, drawn at arrival spacing */
+    bh.pulses.forEach((p2, i) => {
+      const f2 = Math.max(1e-3, 1 - 1/p2.r);
+      const rd = Math.min(1, (1/Math.pow(f2, bh.k) - 1)/6);
+      ctx.fillStyle = `rgba(${140 + 100*rd},${180 - 120*rd},${200 - 160*rd},.9)`;
+      ctx.beginPath(); ctx.arc(bx + 8 + i*11, by + 46, 3 + rd*1.5, 0, 7); ctx.fill();
+    });
+  }
+});
+function texNum(v, sig){
+  if (!isFinite(v)) return "\\infty";
+  const a = Math.abs(v);
+  if (a !== 0 && (a >= 1e4 || a < 1e-3)){
+    const e = Math.floor(Math.log10(a));
+    return (v/Math.pow(10, e)).toFixed(2) + "{\\times}10^{" + e + "}";
+  }
+  return (+v.toPrecision(sig || 4)).toString();
+}
+const LIVE = [];
+function liveEq(tag, fn){
+  const panel = document.querySelector('.eq-panel[data-tag="' + tag + '"]');
+  if (!panel) return;
+  const d = document.createElement("div");
+  d.className = "eq-live eq-scroll";
+  panel.appendChild(d);
+  LIVE.push({d, fn});
+}
+let liveTimer = null;
+function liveNow(){
+  LIVE.forEach(item => {
+    /* re-render only when the line changed: an unchanged KaTeX rebuild every heartbeat
+       snapped a sideways-scrolled row back to its start */
+    try { const tex = item.fn(); if (tex !== item.tex){ renderTex(item.d, tex); item.tex = tex; } item.d.dataset.err = ""; }
+    catch(e){ if (item.d.dataset.err !== "1"){ item.d.dataset.err = "1"; item.d.textContent = "\u2026"; item.tex = null; } }
+  });
+}
+function refreshLive(){
+  clearTimeout(liveTimer);
+  liveTimer = setTimeout(liveNow, 70);
+}
+setInterval(liveNow, 1200);
+liveEq("Schwarzschild dilation \u00B7 GR case k = \u00BD", () => {
+  const x = bh.x(), rate = bh.rate(), kT = bh.k === 0.5 ? "1/2" : "1/3";
+  return String.raw`r_s = \frac{2G\,(${texNum(bh.Msun)}\,M_\odot)}{c^{2}} = ${texNum(bh.rs()/1000)}\ \mathrm{km},\qquad \frac{d\tau}{dt} = \Big(1-\frac{1}{${x.toFixed(3)}}\Big)^{${kT}} = ${rate.toFixed(4)},\qquad z = ${rate.toFixed(4)}^{-1}-1 = ${(1/rate - 1).toFixed(4)}` +
+    (bh.k === 0.5 ? "" : String.raw`\qquad \text{(cubic toggle on)}`);
+});
+liveEq("The 2\u03C0 shell \u00B7 where the hole's gearing equals the framework's own", () => {
+  const kT = bh.k === 0.5 ? "2" : "3", sh = bh.shell2pi(bh.k), x = bh.x();
+  return String.raw`k = \tfrac{1}{${kT}}:\quad \frac{r_{2\pi}}{r_s} = \frac{1}{1-(2\pi)^{-${kT}}} = ${sh.toFixed(5)} \;\Rightarrow\; r_{2\pi} = ${texNum(sh*bh.rs()/1000)}\ \mathrm{km},\qquad \text{gearing at your radius: } \Big(1-\frac{1}{${x.toFixed(3)}}\Big)^{-1/${kT}} = ${(1/bh.rate()).toFixed(4)}`;
+});
+liveEq("The exponent, generalized \u00B7 weak field z \u2192 k\u00B7r_s/r", () => {
+  const x = bh.x(), f = 1 - 1/x, zh = Math.pow(f, -0.5) - 1, zc = Math.pow(f, -1/3) - 1;
+  return String.raw`\frac{r}{r_s} = ${x.toFixed(3)}:\quad z_{1/2} = ${zh.toFixed(4)},\quad z_{1/3} = ${zc.toFixed(4)},\quad \frac{z_{1/2}}{z_{1/3}} = ${(zh/zc).toFixed(3)},\qquad \text{weak field: } k\,\frac{r_s}{r} = ${(0.5/x).toFixed(4)}\ \text{vs}\ ${(1/3/x).toFixed(4)}`;
+});
+document.addEventListener("input", refreshLive, {passive:true});
+document.addEventListener("click", e => {
+  if (e.target.closest(".seg, .chip, .dim-item, .m3-cell, .scale-cell, .btn")) refreshLive();
+}, {passive:true});
+refreshLive();
+
+})();
+</script>
+</body>
+</html>
