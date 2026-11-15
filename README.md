@@ -21,6 +21,6 @@ Made on 2026-11-14 from rev b91 of the compendium page (commit `6cf22d4` of chro
 
 ## Checks and limits
 
-- A scripted headless-Chromium test loaded the page, moved every slider, select and checkbox, clicked every button and sent pointer, wheel and key events to every canvas: 117 actions (slider moves, clicks, and pointer, wheel and key events), 3 canvases, no uncaught exception and no console error. It is a smoke test: this extract was not compared with the original module for identical behaviour, and nothing here has had an independent review.
+- A scripted headless-Chromium test loaded the page, moved every slider and select, clicked every button, sent pointer and wheel events to every canvas and sent key events to the document: 117 actions (the count includes 38 fixed key and window events), 3 canvases, no uncaught exception and no console error. The page has no selects. It is a smoke test: this extract was not compared with the original module for identical behaviour, and nothing here has had an independent review.
 - The framework is the author's own and still in progress; Module XVII of the compendium (also a repository of its own, [chronowave-verdicts-and-rulings](https://github.com/Ajuntanaga/chronowave-verdicts-and-rulings)) carries the page's own verdicts and open rulings.
 - No license: all rights are reserved by default, beyond viewing and forking on GitHub; a license is the author's decision.
